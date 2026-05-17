@@ -24,6 +24,7 @@ curl -sH "User-Agent: $UA" "https://aihot.virxact.com/api/public/items?mode=sele
 - 有数字冲击力（百亿融资、模型排名、数据对比）
 - 贴近普通用户生活（不要纯学术论文）
 - 故事性强，有人物、有转折
+- **优先推荐完整文章**（博客长文、媒体报道、官方发布），**减少推荐 Twitter/X 上的帖子**；帖子信息碎、来源浅，做出来内容薄
 
 **推荐时同步判断文章类型**（供第三步选模板用）：
 - 📊 **数据冲击型**：文章核心是数字/排名/对比（融资额、准确率、成本降幅等）
@@ -58,11 +59,30 @@ curl -sH "User-Agent: $UA" "https://aihot.virxact.com/api/public/items?mode=sele
 ## 第三步：读取 PDF，生成小红书图文 HTML
 
 根据文章类型，选对应模板生成 HTML，输出到：
-`/Users/jiangziyi/Downloads/小红书_图文.html`
+`/Users/jiangziyi/Downloads/<文章标题>.html`
+
+文件名规则：
+- 直接使用原文章标题作为文件名（中文标题完整保留）
+- 标题要醒目、吸引人，若原标题太平淡可在括号内补充冲击性副标题
+- 示例：`Claude Code隐藏玩法爆火！Anthropic大佬：不要再用Markdown了.html`
 
 ### 字数控制（重要）
 
 **每张卡片正文不超过 150 字**。如果内容多，宁可拆成两张卡片，也不要在一张卡片里堆文字。正文字数过多会导致截图排版拥挤，影响阅读体验。
+
+### 写前估算内容密度（先别急着写代码）
+
+**动笔前先在脑子里过一遍每张卡的内容量**，确认能填满卡片，再开始写 HTML。
+
+card-inner 可用高度约 **868px**。粗略估算方式：
+- 正文每行 ≈ font-size × line-height（如 26px × 1.75 ≈ 45px/行）
+- 加上所有标题、间距、padding，估算总高是否达到 **≥ 700px**
+
+若某张卡预估内容不足，**在动笔前就从原文补充内容**，而不是写完再改：
+1. 多提取一段信息、一个数据、一句人物引言
+2. 把同类两张卡合并，内容合在一起才够撑满
+
+> 教训：第一版每张卡片只放了一半内容就交稿，导致大段空白需要返工。估算是写前必做的一步，不是可选项。
 
 ### 三种模板选择
 
@@ -74,7 +94,7 @@ curl -sH "User-Agent: $UA" "https://aihot.virxact.com/api/public/items?mode=sele
 
 | 卡片 | 内容 | 视觉重点 |
 |------|------|----------|
-| 01 封面 | 最大那个数字 + 一句话说明含义 | 超大数字卡（字号 80px+） |
+| 01 封面 | **顺序固定**：badge徽标 → 大标题（≥54px） → 副标题说明 → 核心大数字 → 辅助数据/总结框 | 标题在数字前，让人先看懂主题再看数字 |
 | 02 背景 | 这个数字从何而来，是谁做的 | 简洁段落 |
 | 03 数据全貌 | 所有关键数据一览 | 多个数字卡片并排 |
 | 04 和谁对比 | 和竞品/历史对比 | ❌ vs ✅ 对比卡 |
@@ -113,27 +133,79 @@ curl -sH "User-Agent: $UA" "https://aihot.virxact.com/api/public/items?mode=sele
 ### HTML 样式规范（三种模板通用）
 
 - 卡片宽度 `width: 750px`，**固定高度 `height: 1000px`**（3:4 比例，上传小红书不出现白边）
-- 卡片必须用 flex 布局：`.card { display: flex; flex-direction: column; overflow: hidden; }`
-- 顶部装饰条：`flex-shrink: 0`
+- 卡片外壳用 flex 布局：`.card { display: flex; flex-direction: column; overflow: hidden; }`
+- 顶部装饰条：`flex-shrink: 0`，高度 8px
 - 内容区：`.card-inner { flex: 1; padding: 40px 52px 32px; overflow: hidden; }`
-  - **禁止**用 `justify-content: space-between`，否则中间出现大段空白
-- 底部页码：`.card-footer { flex-shrink: 0; }`
+  - **card-inner 禁止设置 `display: flex`**，只用普通块流布局，内容用 `margin-bottom` 从顶部依次堆叠
+  - 内容从顶部开始堆，底部留白 < 顶部留白，视觉上更自然；禁止 `justify-content: center/space-between`
+- 底部页码：`.card-footer { flex-shrink: 0; }`，padding `12px 52px 16px`
 - 白底 `background: #ffffff`
+- **导语/副标题**（封面卡的第一行说明文字）`font-size: 38~42px; font-weight: 900; color: #111`
 - 主标题 `font-size: 54px; font-weight: 900; color: #111; line-height: 1.3`
 - 正文 `font-size: 27px; color: #333; line-height: 1.8`
 - 顶部 8px 彩色装饰条（情绪色：红/橙/蓝/绿/紫）
 - 黄色高亮 `.hl { background: #fff3b0; padding: 0 4px; }`
 - 数据大字 `font-size: 46px; font-weight: 900; color: #e8192c`
-- 卡片 padding `40px 52px`，底部来源+页码 `padding: 12px 52px 16px`
 - 每张卡片 `.card` class
+
+### 生成后自检（写完 HTML 必做，不要跳过）
+
+生成 HTML 后，**在告知用户之前**，逐张过一遍以下检查项：
+
+**① 高度溢出检查**
+card-inner 可用高度 = 1000 - 8（装饰条）- 52（footer）- 72（padding）= **868px**。
+估算每张卡内容总高：每行 ≈ font-size × line-height，加上所有 margin/padding。
+若估算超过 868px，必须删减内容或拆分卡片，否则 `overflow: hidden` 会静默截断末尾内容。
+
+**② 空白检查**
+脑补每张卡的视觉效果：内容区是否占满 868px 的 **80% 以上**（即内容估算 ≥ 695px）？
+若某张明显稀疏，按优先级补救：
+1. **加纯文字**：补充相关背景、人物介绍、延伸信息等纯文本段落，填满空白区域
+2. **加大字号**：将正文从 27px 适当放大到 29~31px
+3. **合并卡片**：与相邻卡片合并，仍不满足则重组内容结构
+
+**③ 字体层次检查**
+- 封面/结尾卡的导语性文字（如"Anthropic 工程师最新发文说"）≥ **38px 加粗**，不能用 28px 灰色小字
+- 主标题 ≥ 42px，正文 27px，角标/来源 20px
+- 同一张卡内至少有两个明显的字号层次，避免全卡平铺同样大小的文字
+
+**④ 布局检查**
+确认 card-inner 没有 `display: flex`，没有 `justify-content: center`。
+
+**⑤ 封面卡专项检查**（最容易出问题，必查）
+
+- **有没有大标题**：封面必须有 ≥54px 的大标题，让人一眼看出主题。不能直接上数字，数字没有标题就是一堆无意义的数字。
+- **顺序对不对**：badge → 大标题 → 副标题/说明文字 → 核心数据。绝对不能把数字放在标题前面。
+- **标题选择**：**优先直接使用原文章的标题**，不要自己重新编写。原文标题经过作者打磨，往往比自己临时想的更准确、更有吸引力。如原标题太长，截取最有冲击力的部分即可。
+- **标题有没有吸引力**：用反常识措辞（"公司越赚裁员越狠"）、数字冲击或悬念，**不要用平铺直叙的描述**（"科技巨头用机器换人" ❌ → "公司越赚裁员越狠" ✅）。
+- **标题换行方式**：多行标题必须用 `<br>` 按语义断行，不要依赖自然折行。断行点要符合中文语义（"AI裁员潮来袭，`<br>`科技巨头公司裁员数万"），不能把一个短语切断。
+
+**⑥ 内容来源检查**
+
+- **卡片正文优先照抄原文**：不要自己重新组织语言。原文的表述往往更精准、更有细节，自己改写反而容易失真或变得平淡。
+- 直接引用原文关键句、数据、人物说法，保留原文的措辞力度。
+- 只在原文表达不适合小红书阅读节奏时（如太学术、段落太长）才做必要的精简，不要做超出必要的改写。
+
+**⑦ Section 标题检查**
+
+- **优先从原文里找金句作 section 标题**，不要自造平淡陈述句。原文作者打磨过的短句往往比临时自创的更有冲击力。
+  - ❌ 「证据正在加速堆积」「连数学之神都变了」——陈述平淡，无吸引力
+  - ✅ 「数学界的「深蓝时刻」来了」「嘴上说廉价，身体却异常诚实」——来自原文，有力度
+- Section 标题**能一行写下就不换行**，不要用 `<br>` 强制分行。字数允许时默认单行，确实太长才换行，换行点必须符合语义。
+
+**⑧ 全卡视觉风格统一检查**
+
+- 同一套图文，所有卡片必须用**同一种内容组织方式**：要么全卡用盒子（背景色块 + 圆角），要么全卡用裸文字 + 标签。
+- 禁止混用：有的卡片用盒子、有的卡片用裸文字段落，会让整套图文看起来像两套不同设计拼接，割裂感明显。
+- 检查时逐张对比：每张卡的内容块样式（背景色、圆角、padding、标题颜色）是否一致。
 
 ### 卡片数量与内容密度（重要）
 
 - **目标张数：4～5 张**，不要超过 6 张
 - 每张卡片内容必须**视觉饱满**，不能有大段空白
-- 如果某张内容撑不满 1000px 高度，**立即与相邻卡片合并**，不要留空白
+- 如果某张内容撑不满，按顺序处理：①加纯文字补内容 → ②加大字号 → ③与相邻卡合并
 - 合并原则：相关联的两张（如"对比"+"证据"，"技术拆解"+"回应"）合为一张
-- 正文字数每张 **100～150 字**为佳，宁可合并也不要稀疏
+- 正文字数每张 **100～150 字**为佳
 
 ---
 
@@ -143,7 +215,7 @@ curl -sH "User-Agent: $UA" "https://aihot.virxact.com/api/public/items?mode=sele
 
 ```
 HTML 已生成（📊数据冲击型 / 📖故事叙事型 / 💡观点争议型 模板）：
-/Users/jiangziyi/Downloads/小红书_图文.html
+/Users/jiangziyi/Downloads/<文章标题>.html
 
 用浏览器打开预览，确认没问题后告诉我「可以截图」或「需要修改」。
 如需修改，请说明具体改哪张卡片的什么内容。
@@ -159,7 +231,7 @@ HTML 已生成（📊数据冲击型 / 📖故事叙事型 / 💡观点争议型
 
 ```bash
 cd /Users/jiangziyi/Downloads && node screenshot_cards.mjs \
-  /Users/jiangziyi/Downloads/小红书_图文.html \
+  "/Users/jiangziyi/Downloads/<文章标题>.html" \
   /Users/jiangziyi/Downloads/小红书图片 \
   <slug>
 ```
@@ -222,6 +294,6 @@ cd /Users/jiangziyi/Downloads && node screenshot_cards.mjs \
 - 如果 aihot API 无响应，告知用户并请用户直接提供文章
 - 生成 HTML 时严格控制每张卡片 ≤150 字，宁可多加一张卡片
 - 截图脚本路径：`/Users/jiangziyi/Downloads/screenshot_cards.mjs`
-- HTML 输出路径：`/Users/jiangziyi/Downloads/小红书_图文.html`
+- HTML 输出路径：`/Users/jiangziyi/Downloads/<文章标题>.html`（直接用文章标题命名，不要用 `小红书_图文.html` 这类通用名，存多了自己都分不清）
 - 图片根目录：`/Users/jiangziyi/Downloads/小红书图片/`
 - 每次截图自动建子目录 `YYYYMMDD_<slug>/`，不会覆盖历史图片
