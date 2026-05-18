@@ -5,7 +5,110 @@ description: 小红书 AI 图文一键工作流。触发词：今日小红书图
 
 # Redbook Skill — 小红书 AI 图文工作流
 
-当用户说「今日小红书图文」「帮我做小红书」「redbook」时触发此 skill，完整走完以下六步流程，不要跳步、不要省略。
+当用户说「今日小红书图文」「帮我做小红书」「redbook」时触发此 skill，完整走完以下流程，不要跳步、不要省略。
+
+---
+
+## 第零步：选择图文格式
+
+**在做任何事之前，先问用户选择哪种格式：**
+
+```
+请问这次用哪种排版风格？
+
+A）图文设计型：每张卡片都有大标题 + badge标签，结构清晰，适合信息层次丰富的内容
+B）纯文字型：仅封面有大标题，其他页全为纯段落，排版简洁，降低AI检测风险
+
+（不确定可以说「帮我推荐」，我根据文章类型建议）
+```
+
+- 用户选 A → 走原有三种模板（数据冲击型 / 故事叙事型 / 观点争议型）
+- 用户选 B → 走纯文字型模板（见下方"格式B规范"）
+- 用户说推荐 → 根据文章类型判断：信息密度高、数据多选A；观点类、防AI检测优先选B
+
+---
+
+## 格式B — 纯文字型规范
+
+### 结构特征
+
+- 顶部固定红色细条（8px，`#e8192c`）
+- **仅第一张卡片有大标题**（`.h1` 54px + 可选 `.lead` 40px 导语）
+- **其他所有卡片：无标题，只有纯段落文字**
+- `.badge` 红色边框标签（可选，用于标注来源/日期，只出现在第一张）
+- `.hl` 黄色高亮用于关键短语（`background: #fff3b0`）
+- `.quote` 引用块（30px 加粗，适合金句）
+- 进度点颜色：红色 `#e8192c`
+
+### CSS 模板
+
+```css
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #e8e8e8; padding: 40px 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 32px;
+  font-family: "PingFang SC", "Helvetica Neue", "Source Han Sans CN", "Microsoft YaHei", sans-serif;
+}
+.card { width: 750px; height: 1000px; background: #fff; display: flex; flex-direction: column; overflow: hidden; }
+.bar { flex-shrink: 0; height: 8px; background: #e8192c; }
+.card-header { flex-shrink: 0; padding: 14px 52px 12px; display: flex; justify-content: flex-end; align-items: center; }
+.pager { font-size: 21px; color: #999; }
+.card-inner { flex: 1; padding: 36px 52px 28px; overflow: hidden; }
+.card-footer { flex-shrink: 0; padding: 8px 52px 16px; display: flex; justify-content: center; gap: 6px; align-items: center; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: #ccc; flex-shrink: 0; }
+.dot.active { background: #e8192c; width: 18px; border-radius: 3px; }
+.badge { display: inline-block; font-size: 22px; font-weight: 700; color: #e8192c; border: 2px solid #e8192c; border-radius: 4px; padding: 3px 12px; margin-bottom: 20px; }
+.lead { font-size: 40px; font-weight: 900; color: #111; line-height: 1.25; margin-bottom: 14px; }
+.h1 { font-size: 54px; font-weight: 900; color: #111; line-height: 1.25; margin-bottom: 22px; }
+p { font-size: 27px; color: #333; line-height: 1.8; margin-bottom: 18px; }
+p:last-child { margin-bottom: 0; }
+b { font-weight: 700; color: #111; }
+.hl { background: #fff3b0; padding: 0 4px; }
+.quote { font-size: 30px; font-weight: 700; color: #111; line-height: 1.7; margin-bottom: 18px; }
+.gray { color: #888; font-size: 24px; }
+```
+
+### 卡片结构
+
+**封面（第一张）**：
+```html
+<div class="card">
+  <div class="bar"></div>
+  <div class="card-header"><span class="pager">1/N</span></div>
+  <div class="card-inner">
+    <div class="badge">来源 · 日期</div>
+    <div class="lead">副标题导语（可选）</div>
+    <div class="h1">大标题<br>换行写</div>
+    <p>正文段落...</p>
+    <div class="quote">「金句引用」</div>
+    <p class="gray">补充说明</p>
+  </div>
+  <div class="card-footer"><!-- dots --></div>
+</div>
+```
+
+**其他卡片（第二张起）**：
+```html
+<div class="card">
+  <div class="bar"></div>
+  <div class="card-header"><span class="pager">N/N</span></div>
+  <div class="card-inner">
+    <!-- 无标题，直接段落 -->
+    <p><b>关键词加粗</b>正文...</p>
+    <p>第二段...</p>
+    <div class="quote">「金句」</div>
+  </div>
+  <div class="card-footer"><!-- dots --></div>
+</div>
+```
+
+### 高度估算（格式B）
+
+card-inner 可用高度 = 1000 - 8（顶条）- 48（header）- 64（padding）- 40（footer）≈ **840px**
+- `p` 每行 ≈ 27 × 1.8 = 48.6px，加 margin-bottom 18px ≈ **67px/行**
+- 3行段落 ≈ 3×48.6 + 18 = 163px；4行段落 ≈ 213px
+- `.quote` ≈ 2行 × 54px + 18 = **126px**
+- 目标：每张卡内容 ≥ **672px**（80%）
 
 ---
 
@@ -275,6 +378,7 @@ cd /Users/jiangziyi/Downloads && node screenshot_cards.mjs \
 
 **文案写作要求**：
 - 标题：**必须以「AI日报｜」开头，总字数不超过 20 字**（含前缀）；数字/反常识/悬念三选一，前 10 字决定点击率
+- 示例标题格式：`AI日报｜硅谷传疯了这份AI创业手册，一个人就能撑起一家独角兽`
 - 正文：从一个具体场景或反常识结论入手，不要开门见山讲背景
 - 语气：像在跟朋友聊天，不要写成新闻稿
 - 结尾：必须有一个互动问题（"你觉得……""有没有人……"）
