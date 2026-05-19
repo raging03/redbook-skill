@@ -1,6 +1,6 @@
 # redbook — 小红书 AI 图文一键工作流
 
-一个 Claude Code Skill，说一句「今日小红书图文」，自动完成从 AI 日报选题 → PDF 解读 → HTML 图文生成 → 截图出图 → 配套文案的完整流程。
+一个 Claude Code Skill，说一句「今日小红书图文」「小红书图文」「小红书日报」「今日ai日报」「今日AI日报」或「redbook」，自动完成从 AI 日报选题 → PDF 解读 → HTML 图文生成 → 截图出图 → 配套文案的完整流程。
 
 ---
 
@@ -55,6 +55,10 @@ npm install puppeteer
 
 ```
 今日小红书图文
+小红书图文
+小红书日报
+今日ai日报
+今日AI日报
 ```
 
 或：
