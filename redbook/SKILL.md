@@ -112,6 +112,47 @@ card-inner 可用高度 = 1000 - 8（顶条）- 48（header）- 64（padding）-
 
 ---
 
+## 历史作品参考 / 避免重复选题
+
+以下为江总过往已生成的小红书 HTML，可作为风格、密度和选题去重参考。推荐选题时优先避开同主题重复；生成新图文时参考其白底大标题、彩色信息卡、4～5 张高密度卡片风格。
+
+**AI日报已做：**
+- 豆包AI误导用户损失600元：`/Users/jiangziyi/Downloads/豆包AI误导用户损失600元.html`
+- 毕业典礼谈AI被嘘：`/Users/jiangziyi/Downloads/毕业典礼谈AI被嘘.html`
+- Kimi Work投资大师Skill：`/Users/jiangziyi/Downloads/KimiWork投资大师Skill.html`
+- iPhone一夜变成AiPhone：`/Users/jiangziyi/Downloads/iPhone一夜变成AiPhone.html`
+- 周星驰电影AI二创：`/Users/jiangziyi/Downloads/周星驰电影AI二创.html`
+- 中国2950亿美元AI基建计划：`/Users/jiangziyi/Downloads/中国2950亿美元AI基建计划.html`
+- Claude Code动态工作流：`/Users/jiangziyi/Downloads/Claude Code动态工作流：让AI Agent像流水线一样协作.html`
+- SpaceX、Anthropic、OpenAI拟扎堆上市：`/Users/jiangziyi/Downloads/SpaceX、Anthropic、OpenAI拟扎堆上市！加起来市值近4万亿美元.html`
+- Claude Opus 4.8变安全了，但也更难用了：`/Users/jiangziyi/Downloads/Claude Opus 4.8变安全了，但也更难用了？.html`
+- AI表现优于法学教授：`/Users/jiangziyi/Downloads/AI表现优于法学教授：斯坦福研究发现教授更偏好AI答案.html`
+- 联合国报告警示AI数据中心水电消耗：`/Users/jiangziyi/Downloads/联合国报告警示：AI驱动下2030年数据中心水电消耗将翻倍.html`
+- 佛罗里达起诉OpenAI：`/Users/jiangziyi/Downloads/佛罗里达起诉OpenAI！凶手行凶前先问了ChatGPT.html`
+- OpenAI总裁亲述奥特曼被罢免：`/Users/jiangziyi/Downloads/OpenAI差点没了？总裁亲述：奥特曼被罢免当天，我就辞职了.html`
+- DeepSeek V4价格打骨折：`/Users/jiangziyi/Downloads/DeepSeek V4价格打骨折，宁王京东网易抢着入场，梁文锋：目标是AGI.html`
+- 微信读书Skill：`/Users/jiangziyi/Downloads/微信读书 Skill 冲上热搜，AI 终于让我的书不白读了.html`
+- Cursor Composer 2.5性价比：`/Users/jiangziyi/Downloads/1／10成本、Opus 4.7级表现，Cursor甩出了性价比之王Composer 2.5.html`
+- 从卖token到卖结果：`/Users/jiangziyi/Downloads/从卖 token 到卖结果，这些公司开始让 AI 背 KPI 了.html`
+- ChatGPT打通银行API：`/Users/jiangziyi/Downloads/OpenAI把手伸进你的钱包了！ChatGPT 打通银行 API，全网炸锅：这是给黑客发年终奖？.html`
+- Anthropic创业秘籍：`/Users/jiangziyi/Downloads/Anthropic 33页创业秘籍曝光！你和Claude就能撑起一家独角兽.html`
+- 硅谷AI创业手册：`/Users/jiangziyi/Downloads/硅谷传疯了这份AI创业手册.html`
+- AI数学能力争议：`/Users/jiangziyi/Downloads/2小时搞定博士论文，3天终结40年悬案：AI宣判数学「死刑」？.html`
+- Claude Code隐藏玩法：`/Users/jiangziyi/Downloads/Claude Code隐藏玩法爆火！Anthropic大佬：不要再用Markdown了.html`
+- AI裁员潮：`/Users/jiangziyi/Downloads/小红书_AI裁员潮来袭_图文.html`
+- AI勒索：`/Users/jiangziyi/Downloads/小红书_AI勒索_图文.html`
+
+**AI知识已做：**
+- ReAct：`/Users/jiangziyi/Downloads/AI Agent核心架构ReAct——LLM不思考就会胡说.html`
+
+**非小红书/测试文件，通常不作为选题参考：**
+- `spotlight-modal*.html`
+- `fonts_preview (1).html`
+- `ai_studio_code*.html`
+- `五年级水循环小测验.html`
+
+---
+
 ## 第一步：拉取今日 AI 日报，推荐选题
 
 用 aihot skill 的 API 拉取今日精选，筛选出**最适合小红书传播**的 3~5 篇文章推荐给用户。
@@ -388,6 +429,16 @@ cd /Users/jiangziyi/Downloads && node screenshot_cards.mjs \
 - 📊 数据冲击型：正文先抛最震撼的数字，再解释背后含义
 - 📖 故事叙事型：正文用"你知道吗……"开头，讲最戏剧性的转折
 - 💡 观点争议型：正文先说"大家都以为……但其实……"，制造反转
+
+---
+
+## 第七步：同步历史参考到 GitHub
+
+每次完成 HTML、截图和小红书文案后：
+1. 将本次新生成的 HTML 路径补充进本文件的「历史作品参考 / 避免重复选题」清单，并同步更新上级 `SKILL.md` 中的同名清单。
+2. 在 `/Users/jiangziyi/.claude/skills/redbook` 仓库中只提交相关 skill 文件改动。
+3. 提交信息使用中文，说明本次新增的历史参考主题。
+4. 推送到当前远程 GitHub 仓库；如果 `git push` 失败，必须如实告诉江总失败原因，不能说已同步。
 
 ---
 
