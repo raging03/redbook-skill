@@ -145,12 +145,6 @@ card-inner 可用高度 = 1000 - 8（顶条）- 48（header）- 64（padding）-
 **AI知识已做：**
 - ReAct：`/Users/jiangziyi/Downloads/AI Agent核心架构ReAct——LLM不思考就会胡说.html`
 
-**非小红书/测试文件，通常不作为选题参考：**
-- `spotlight-modal*.html`
-- `fonts_preview (1).html`
-- `ai_studio_code*.html`
-- `五年级水循环小测验.html`
-
 ---
 
 ## 第一步：拉取今日 AI 日报，推荐选题
