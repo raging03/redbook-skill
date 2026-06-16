@@ -151,6 +151,7 @@ card-inner 可用高度 = 1000 - 8（顶条）- 48（header）- 64（padding）-
 **AI知识已做：**
 - ReAct：`/Users/jiangziyi/Downloads/AI Agent核心架构ReAct——LLM不思考就会胡说.html`
 - Loop Engineering：`/Users/jiangziyi/Downloads/Loop Engineering：别只会写Prompt了.html`
+- GUI vs CLI Agent：`/Users/jiangziyi/Downloads/GUI vs CLI Agent：AI该点屏幕还是敲命令.html`
 
 ---
 
