@@ -147,11 +147,11 @@ card-inner 可用高度 = 1000 - 8（顶条）- 48（header）- 64（padding）-
 - Claude Code隐藏玩法：`/Users/jiangziyi/Downloads/Claude Code隐藏玩法爆火！Anthropic大佬：不要再用Markdown了.html`
 - AI裁员潮：`/Users/jiangziyi/Downloads/小红书_AI裁员潮来袭_图文.html`
 - AI勒索：`/Users/jiangziyi/Downloads/小红书_AI勒索_图文.html`
-- GLM-5.2开源对标Opus：`/Users/jiangziyi/Downloads/AI日报｜国产模型杀到 Opus 门口了.html`
 
 **AI知识已做：**
 - ReAct：`/Users/jiangziyi/Downloads/AI Agent核心架构ReAct——LLM不思考就会胡说.html`
 - Loop Engineering：`/Users/jiangziyi/Downloads/Loop Engineering：别只会写Prompt了.html`
+- GUI vs CLI Agent：`/Users/jiangziyi/Downloads/GUI vs CLI Agent：AI该点屏幕还是敲命令.html`
 
 ---
 
@@ -387,9 +387,11 @@ card-inner 可用高度 = 1000 - 8（装饰条）- 52（footer）- 72（padding�
 
 - **有没有大标题**：封面必须有 ≥54px 的大标题，让人一眼看出主题。不能直接上数字，数字没有标题就是一堆无意义的数字。
 - **顺序对不对**：badge → 大标题 → 副标题/说明文字 → 核心数据。绝对不能把数字放在标题前面。
-- **标题选择**：**优先直接使用原文章的标题**，不要自己重新编写。原文标题经过作者打磨，往往比自己临时想的更准确、更有吸引力。如原标题太长，截取最有冲击力的部分即可。
+- **AI知识标题检查**：顶部 badge 标签保留；核心概念必须在标签下方的正文主视觉标题区突出，放第一行，标题最多两行；不要在核心概念前先写长导语或铺垫句。示例：顶部标签 → `RAG` + `到底是什么？`。
+- **AI日报标题检查**：优先吸引人，用数字冲击、反常识、冲突、悬念；可以重写原标题，但必须保留事实准确。
+- **标题选择**：AI日报优先使用原文里最有冲击力的标题/金句，如原标题太平则改成更抓人的小红书标题；AI知识优先突出概念名。
 - **标题有没有吸引力**：用反常识措辞（"公司越赚裁员越狠"）、数字冲击或悬念，**不要用平铺直叙的描述**（"科技巨头用机器换人" ❌ → "公司越赚裁员越狠" ✅）。
-- **标题换行方式**：多行标题必须用 `<br>` 按语义断行，不要依赖自然折行。断行点要符合中文语义（"AI裁员潮来袭，`<br>`科技巨头公司裁员数万"），不能把一个短语切断。
+- **标题换行方式**：多行标题必须用 `<br>` 按语义断行，不要依赖自然折行。AI知识标题不超过两行；断行点要符合中文语义，不能把一个短语切断。
 
 **⑥ 内容来源检查**
 
