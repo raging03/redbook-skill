@@ -148,6 +148,7 @@ card-inner 可用高度 = 1000 - 8（顶条）- 48（header）- 64（padding）-
 - AI裁员潮：`/Users/jiangziyi/Downloads/小红书_AI裁员潮来袭_图文.html`
 - AI勒索：`/Users/jiangziyi/Downloads/小红书_AI勒索_图文.html`
 - AI杀死自助书：`/Users/jiangziyi/Downloads/AI杀死了自助类书籍？畅销书作者销量暴跌80%.html`
+- SpaceX收购Cursor：`/Users/jiangziyi/Downloads/SpaceX刚IPO，就600亿买下Cursor.html`
 
 **AI知识已做：**
 - ReAct：`/Users/jiangziyi/Downloads/AI Agent核心架构ReAct——LLM不思考就会胡说.html`
