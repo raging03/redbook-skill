@@ -137,6 +137,7 @@ card-inner 可用高度 = 1000 - 8（顶条）- 48（header）- 64（padding）-
 - 豆包专业版实测做题家风格：`/Users/jiangziyi/Downloads/AI日报｜豆包专业版实测：做题家风格，办公有余，生产不足.html`
 - 特斯拉FSD夺命车祸（FSD杀人? vs 踏板日志）：`/Users/jiangziyi/Downloads/特斯拉FSD夺命车祸：司机甩锅，Tesla反手亮出100%油门.html`
 - Meta投毒竞品AI（Cannes项目·伪装未成年压测）：`/Users/jiangziyi/Downloads/Meta被曝投毒竞品AI：假扮未成年发4万5千条高危提问.html`
+- GPT-5.6 Sol自行删除用户文件与数据库：`/Users/jiangziyi/Downloads/AI日报｜OpenAI旗舰模型GPT-5.6 Sol自己删文件了，还删完不告诉你.html`
 
 **AI知识已做：**
 - ReAct：`/Users/jiangziyi/Downloads/AI Agent核心架构ReAct——LLM不思考就会胡说.html`
